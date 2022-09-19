@@ -1,0 +1,1 @@
+export const emptyData = state => state.empty
