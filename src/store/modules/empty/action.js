@@ -1,7 +1,6 @@
 export const TYPES = {
-  loading: null,
+  hello: null,
 };
-
 for (const key of Object.keys(TYPES)) {
   TYPES[key] = `empty__${key}`;
 }

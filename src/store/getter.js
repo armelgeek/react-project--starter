@@ -1,12 +1,13 @@
 import { useMemo, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import * as modules from './modules'
+import {mergeGetter} from './magick/getter';
 
 // console.log(modules)
 const defaultGetter = state => state
 
 const getter = (moduleName, key) => {
-  const getters = modules[moduleName].getter
+  const getters = mergeGetter(modules,moduleName)
   if (getters && getters[key]) return getters[key]
   console.warn('getter not found:', moduleName, key)
   return defaultGetter

@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
+import {mergeActions} from './magick/action';
 import * as modules from './modules'
 
 const defaultAction = () => {}
@@ -10,7 +11,7 @@ export default (moduleName, name) => {
   // console.log(moduleName, key)
 
   return useCallback((...params) => {
-    const actions = modules[moduleName].action
+    const actions = mergeActions(modules,moduleName)
     let action
     if (actions && actions[name]) action = actions[name]
     else {
