@@ -1,1 +1,1 @@
-export const empty = state => state.empty
+export const data = state => state.data

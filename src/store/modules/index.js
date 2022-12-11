@@ -1,2 +1,2 @@
-import * as empty from "./empty";
-export { empty };
+import * as posts from "./posts";
+export { posts };

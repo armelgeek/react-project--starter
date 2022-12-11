@@ -1,4 +1,4 @@
 export const TYPES = {};
 for (const key of Object.keys(TYPES)) {
-  TYPES[key] = `empty__${key}`;
+  TYPES[key] = `posts__${key}`;
 }

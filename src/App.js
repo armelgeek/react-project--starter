@@ -1,115 +1,100 @@
-import './App.css';
-import {useGetter,useDispatch} from './store';
+import "./App.css";
+import { createBrowserHistory } from "history";
+import { useGetter, useDispatch } from "./store";
+import { useCallback, useEffect } from "react";
+import Overlay from './components/Overlay';
+const history = createBrowserHistory();
+
 function App() {
-  const loading = useGetter('empty','isLoading');
-  const items = useGetter('empty','items');
-  const setLoading = useDispatch('empty','setLoading');
-  const addItem = useDispatch('empty','addItem');
-  const addItems = useDispatch('empty','addItems');
-  const insertItem = useDispatch('empty','insertItem');
-  const removeItemByIndex = useDispatch('empty','removeItemByIndex');
-  const removeItemByKey = useDispatch('empty','removeItemByKey');
-  const removeItemsByKey = useDispatch('empty','removeItemsByKey');
-  const updateItem = useDispatch('empty','updateItem');
-  const updateItemByKey = useDispatch('empty','updateItemByKey');
-  const updateItemsByKey = useDispatch('empty','updateItemsByKey');
+  const success = useGetter("posts", "success");
+  const error = useGetter("posts", "error");
+  const isLoading = useGetter("posts", "isLoading");
+  const value = useGetter("posts", "value");
+  const selected = useGetter("posts", "selected");
+  const create = useDispatch("posts", "create");
+  const fetch = useDispatch("posts", "fetch");
+  const update = useDispatch("posts", "update");
+  const destroy = useDispatch("posts", "destroy");
+  const get = useDispatch("posts", "get");
+  const createItem = useCallback(() => {
+    create({
+      id: new Date().getTime(),
+      title: "foo",
+      body: "bar",
+      userId: 1,
+    });
+  }, []);
+
+  const onClickItem = useCallback((item, index) => {
+    update(
+      {
+        id: item.id,
+        title: "hello leka",
+      },
+      {
+        index: index,
+      }
+    );
+  }, []);
+  const destroyItem = useCallback((item, index) => {
+    if (window.confirm(`Vous voulez vraiment supprimer le post #${item.id}`)) {
+      destroy(item, {
+        index: index,
+      });
+    }
+  }, []);
+  const getItem = useCallback((item, index) => {
+    get(item);
+  }, []);
+  const renderItem = useCallback((v, i) => {
+    //console.log("index", i);
+    return (
+      <tr key={i} style={{
+        backgroundColor: v.hasModified ? 'green':'transparent',
+        color : v.hasModified ? '#fff' : '#000'
+      }}>
+        <td>{v.id}</td>
+        <td key={i}>{v.title}</td>
+        <td>
+          <button className="mr-3 btn btn-info" onClick={() => getItem(v, i)}>
+            Voir
+          </button>
+          <button
+            className="mr-3 btn btn-warning"
+            onClick={() => onClickItem(v, i)}
+          >
+            Editer
+          </button>
+          <button className="btn btn-danger" onClick={() => destroyItem(v, i)}>
+            Delete
+          </button>
+        </td>
+      </tr>
+    );
+  }, []);
+  useEffect(() => {
+    fetch();
+  }, []);
 
   return (
-    <div className="App">
-     <h1 className="text-3xl font-bold underline">
-        Noob Noob,You are Noob
-        <div className="mb-3"> </div>
-        {loading ? 'yes':'no'}
-      </h1>
-      <button className="p-3" onClick={setLoading}>Set no</button>
-      <button className="p-3" onClick={()=>{
-        addItems([{
-                          id:1,
-                          name: 'name 1'
-                        },{
-                  id:2,
-                  name: 'name 2'
-                },{
-                  id:3,
-                  name: 'name 3'
-                },{
-                  id:4,
-                  name: 'name 4'
-                },{
-                  id:5,
-                  name: 'name 5'
-                }])
-      }}>addItem</button>
-
-        <button className="p-3" onClick={()=>{
-        insertItem({item:{
-                          id: 'fiai',
-                          name: 'fiai'
-                        },index: 2})
-      }}>insertInto</button>
-
-       <button className="p-3" onClick={()=>{
-        removeItemsByKey({
-          items:[
-            {
-                  id:2,
-                  name: 'name 2'
-                },
-                {
-                  id:3,
-                  name: 'name 3'
-                }
-          ],
-          key:'id' 
-        })
-      }}>Remove all</button>
-<button className="p-3" onClick={()=>{
-  updateItem({
-    item:{
-      name: 'la vie de wanes'
-    },
-    index: 2
-  })
-}}>Update item</button>
-
-
-          <button onClick={()=>updateItemByKey({
-            key: 'id',
-            item: {
-              id: 3,
-              name: 'mamy'
-            }
-          })}>update it</button>
-
-
-
-          <button className="p-3" onClick={()=>{
-        updateItemsByKey({
-          items:[
-            {
-                  id:2,
-                  name: 'nouvlelement 2'
-                },
-                {
-                  id:3,
-                  name: 'nouvelement modifié 3'
-                }
-          ],
-          key:'id' 
-        })
-      }}>update all</button>
-      {items.map((i,index) =>(
-        <div key={i.id}>{i.name}
-          <button onClick={()=>removeItemByIndex(index)}>Remove by index</button>
-          
-          <button onClick={()=>removeItemByKey({
-            item:i,
-            key:'id'
-          })}>Remove by key</button>
-
-        </div>
-      ))}
-    </div>
+    <>
+      {error && <p>{error}</p>}
+      {success && <p className={"text-green"}>{success}</p>}
+      {isLoading && <p>Chargement en cours ....</p>}
+      {selected && <p>selected:{selected.title}</p>}
+      <button onClick={createItem} className="pl-1 py-3">
+        Create post
+      </button>
+      <table className="table w-100 table-striped text-left" border={2}>
+        <thead>
+          <tr>
+            <th className="uppercase">Id</th>
+            <th className="uppercase">Title</th>
+            <th className="uppercase">Actions</th>
+          </tr>
+        </thead>
+        <tbody>{value.map(renderItem)}</tbody>
+      </table></>
   );
 }
 
