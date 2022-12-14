@@ -1,2 +1,3 @@
 import * as posts from "./posts";
-export { posts };
+import * as permissions from "./permissions";
+export { posts, permissions };

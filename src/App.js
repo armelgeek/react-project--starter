@@ -2,7 +2,9 @@ import "./App.css";
 import { createBrowserHistory } from "history";
 import { useGetter, useDispatch } from "./store";
 import { useCallback, useEffect } from "react";
-import Overlay from './components/Overlay';
+import PermissionsGate from "./components/PermissionsGate";
+import { SCOPES } from "./config/permissions-maps";
+import Permission from './pages/Permission';
 const history = createBrowserHistory();
 
 function App() {
@@ -49,10 +51,13 @@ function App() {
   const renderItem = useCallback((v, i) => {
     //console.log("index", i);
     return (
-      <tr key={i} style={{
-        backgroundColor: v.hasModified ? 'green':'transparent',
-        color : v.hasModified ? '#fff' : '#000'
-      }}>
+      <tr
+        key={i}
+        style={{
+          backgroundColor: v.hasModified ? "green" : "transparent",
+          color: v.hasModified ? "#fff" : "#000",
+        }}
+      >
         <td>{v.id}</td>
         <td key={i}>{v.title}</td>
         <td>
@@ -73,11 +78,18 @@ function App() {
     );
   }, []);
   useEffect(() => {
-    fetch();
+ //   fetch();
   }, []);
 
   return (
     <>
+    <Permission/>
+    {/**  <PermissionsGate
+        scopes={[SCOPES.canEdit]}
+      >
+        <h1>Private content</h1>
+        <p>Must be an editor to view</p>
+      </PermissionsGate>
       {error && <p>{error}</p>}
       {success && <p className={"text-green"}>{success}</p>}
       {isLoading && <p>Chargement en cours ....</p>}
@@ -94,7 +106,8 @@ function App() {
           </tr>
         </thead>
         <tbody>{value.map(renderItem)}</tbody>
-      </table></>
+      </table> */}
+    </>
   );
 }
 

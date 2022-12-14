@@ -1,31 +1,31 @@
-import { useMemo, useCallback } from 'react'
-import { useSelector } from 'react-redux'
-import * as modules from './modules'
-import {mergeGetter} from './magick/getter';
+import { useMemo, useCallback } from "react";
+import { useSelector } from "react-redux";
+import * as modules from "./modules";
+import { mergeGetter } from "./magick/getter";
+import { getExcludeModules } from "./exludes";
 
 // console.log(modules)
-const defaultGetter = state => state
+const defaultGetter = (state) => state;
 
 const getter = (moduleName, key) => {
-  const getters = mergeGetter(modules,moduleName)
-  if (getters && getters[key]) return getters[key]
-  console.warn('getter not found:', moduleName, key)
-  return defaultGetter
-}
+  const getters = !getExcludeModules(moduleName)
+    ? mergeGetter(modules, moduleName)
+    : modules[moduleName].getter;
+  if (getters && getters[key]) return getters[key];
+  console.warn("getter not found:", moduleName, key);
+  return defaultGetter;
+};
 
 const useGetter = (moduleName, key, props) => {
   const memoGetter = useMemo(() => {
-    return getter(moduleName, key)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-  const selecteor = useCallback(state => memoGetter(state, props), [props])
+    return getter(moduleName, key);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const selecteor = useCallback((state) => memoGetter(state, props), [props]);
 
   // console.log(selector)
   // console.log(moduleName, key)
-  return useSelector(selecteor)
-}
+  return useSelector(selecteor);
+};
 
-export {
-  getter,
-  useGetter,
-}
+export { getter, useGetter };
