@@ -4,7 +4,8 @@ import { useGetter, useDispatch } from "./store";
 import { useCallback, useEffect } from "react";
 import PermissionsGate from "./components/PermissionsGate";
 import { SCOPES } from "./config/permissions-maps";
-import Permission from './pages/Permission';
+import Permission from "./pages/Permission";
+import Setting from "./pages/Setting";
 const history = createBrowserHistory();
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
   const update = useDispatch("posts", "update");
   const destroy = useDispatch("posts", "destroy");
   const get = useDispatch("posts", "get");
+  const activeThemeId = useGetter("common", "activeThemeId");
   const createItem = useCallback(() => {
     create({
       id: new Date().getTime(),
@@ -78,13 +80,17 @@ function App() {
     );
   }, []);
   useEffect(() => {
- //   fetch();
+    //   fetch();
   }, []);
 
   return (
     <>
-    <Permission/>
-    {/**  <PermissionsGate
+    <p style={{
+      color: `${activeThemeId}`
+    }}>{activeThemeId}</p>
+      <Setting />
+      {/**  <Permission/>
+   <PermissionsGate
         scopes={[SCOPES.canEdit]}
       >
         <h1>Private content</h1>
