@@ -1,7 +1,7 @@
 import axios from "axios";
 import _ from "lodash";
 export const apiConfig = {
-  baseURL: process.env.API_URL || "https://jsonplaceholder.typicode.com/",
+  baseURL: process.env.API_URL || "http://localhost:8100/api/",
   headers: () => {
     return {
       Accept: "application/json",
@@ -27,12 +27,12 @@ request.interceptors.response.use(
   },
   (error) => console.log(error)
 );
-const api = (method, url, variables) =>
+const api = (method, url, variables, headers) =>
   new Promise((resolve, reject) => {
     request({
       url: `${url}`,
       method,
-      headers: apiConfig.headers(),
+      headers: headers ? headers : apiConfig.headers(),
       params: method === "get" ? variables : undefined,
       data: method !== "get" ? JSON.stringify(variables) : undefined,
     })

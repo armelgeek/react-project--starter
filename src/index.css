@@ -1,16 +1,67 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body,
+html {
+  font-family: "Montserrat" !important;
+  margin: 0px;
+  height: 100vh;
+}
+.wrapper-content {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+.text-green {
+  color: #198754;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #198754 !important;
 }
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.nav-link {
+  display: block;
+  padding: 0.3rem 0.2rem !important;
+  color: #198754;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out;
+}
+.title {
+  font-weight: 600;
+}
+.bg-thead {
+  color: white;
+  background-color: #2d9c69 !important;
+}
+
+table {
+  position: relative;
+  border-collapse: collapse;
+}
+.sticky-this {
+  background: white;
+  position: sticky;
+  top: 0; /* Don't forget this, required for the stickiness */
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+
+.login-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 150px;
+}
+.form-control:focus {
+  border-color: #78d6aa !important;
+  box-shadow: 0 0 0 0.2rem #a7f0ce !important;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  color: #198754 !important;
+  content: ">" !important;
+}
+.breadcrumb-item > a {
+  color: #198754 !important;
+}

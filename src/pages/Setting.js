@@ -46,7 +46,7 @@ const Setting = memo(() => {
         }}
       >
         {themes.map(({ id, color }) => (
-          <ThemeItem id={id} color={color} setTheme={setTheme} />
+          <ThemeItem id={id} key={id} color={color} setTheme={setTheme} />
         ))}
       </div>
     </>

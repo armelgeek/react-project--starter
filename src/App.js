@@ -1,4 +1,5 @@
 import "./App.css";
+import LayoutContent from "./@adminlte/adminlte/Content/LayoutContent";
 import { createBrowserHistory } from "history";
 import { useGetter, useDispatch } from "./store";
 import { useCallback, useEffect } from "react";
@@ -84,13 +85,17 @@ function App() {
   }, []);
 
   return (
-    <>
-    <p style={{
-      color: `${activeThemeId}`
-    }}>{activeThemeId}</p>
+    <LayoutContent title={"Parametres"}>
+      <p
+        style={{
+          color: `${activeThemeId}`,
+        }}
+      >
+        {activeThemeId}
+      </p>
       <Setting />
-      {/**  <Permission/>
-   <PermissionsGate
+      <Permission />
+      {/** <PermissionsGate
         scopes={[SCOPES.canEdit]}
       >
         <h1>Private content</h1>
@@ -113,7 +118,7 @@ function App() {
         </thead>
         <tbody>{value.map(renderItem)}</tbody>
       </table> */}
-    </>
+    </LayoutContent>
   );
 }
 

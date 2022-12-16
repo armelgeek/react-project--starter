@@ -1,4 +1,4 @@
-import api, { apiConfig } from "../utils/api";
+import api, { apiConfig } from "../../config/api";
 import humps from "humps";
 import _ from "lodash";
 export const mergeActions = (modules, moduleName) => {
