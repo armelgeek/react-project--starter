@@ -13,13 +13,13 @@ const Shop = memo(({ children }) => {
         <h1 className="">TITLE</h1>
       </div>
       <div className="py-2">
-        <div class="d-flex justify-content-between align-items-center">
+        <div className="d-flex justify-content-between align-items-center">
           <div></div>
           <div></div>
 
           <div className="bg-thead"></div>
         </div>
-        <div class="d-flex justify-content-center mt-2 align-items-center">
+        <div className="d-flex justify-content-center mt-2 align-items-center">
           
         </div>
       </div>
@@ -45,10 +45,10 @@ const Admin = memo(({ children }) => {
             BRAND
           </span>
         </Link>
-        <div class="sidebar">
-          <nav class="mt-2">
+        <div className="sidebar">
+          <nav className="mt-2">
             <ul
-              class="nav nav-pills nav-sidebar flex-column"
+              className="nav nav-pills nav-sidebar flex-column"
               data-widget="treeview"
               role="menu"
               data-accordion="false"

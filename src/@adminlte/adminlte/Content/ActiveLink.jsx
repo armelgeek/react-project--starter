@@ -3,7 +3,7 @@ import React from "react";
 function ActiveLink({ title }) {
   return (
     <>
-      <li class="breadcrumb-item active">{title}</li>
+      <li className="breadcrumb-item active">{title}</li>
     </>
   );
 }

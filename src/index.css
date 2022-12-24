@@ -48,11 +48,12 @@ table {
 }
 
 .login-box {
+  width: 100%!important;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 150px;
 }
 .form-control:focus {
   border-color: #78d6aa !important;

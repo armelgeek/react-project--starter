@@ -1,0 +1,1 @@
+export const index = () => <div>Hello leka autres</div>;

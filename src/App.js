@@ -5,8 +5,8 @@ import { useGetter, useDispatch } from "./store";
 import { useCallback, useEffect } from "react";
 import PermissionsGate from "./components/PermissionsGate";
 import { SCOPES } from "./config/permissions-maps";
-import Permission from "./pages/Permission";
-import Setting from "./pages/Setting";
+//import Permission from "./pages/Permission";
+//import Setting from "./pages/Setting";
 const history = createBrowserHistory();
 
 function App() {
@@ -93,9 +93,9 @@ function App() {
       >
         {activeThemeId}
       </p>
-      <Setting />
+      {/**<Setting />
       <Permission />
-      {/** <PermissionsGate
+       <PermissionsGate
         scopes={[SCOPES.canEdit]}
       >
         <h1>Private content</h1>

@@ -11,12 +11,18 @@ import AppStoreProvider from "./store/Provider/Provider";
 import Routes from "./config/routes";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from './theme';
-
+import * as screens from './screens';
+import Walls from "walls";
+const routes= screens.pages();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ChakraProvider theme={theme}>
   <AppStoreProvider>
-    <Routes />
+   <Walls
+         routes={routes}
+         isAuthorized={true}
+         onUnauthorized={()=>console.log('error')}
+       />
     <ToastContainer
       position="top-right"
       autoClose={5000}

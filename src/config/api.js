@@ -6,6 +6,7 @@ export const apiConfig = {
     return {
       Accept: "application/json",
       "Content-Type": "application/json; charset=UTF-8",
+      "x-access-token": localStorage.getItem("token"),
     };
   },
   error: {

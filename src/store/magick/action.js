@@ -185,7 +185,7 @@ export const mergeActions = (modules, moduleName) => {
         .then((json) => {
           dispatch({
             type: `${moduleName}__fetch_items`,
-            payload: json,
+            payload: json.rows !=undefined ? json.rows: json,
           });
           dispatch(setError(""));
           dispatch(
@@ -196,7 +196,7 @@ export const mergeActions = (modules, moduleName) => {
           dispatch(setLoading(false));
           console.log(`fetch ${moduleName} success`);
         })
-        .catch((err) => {
+        /** .catch((err) => {
           console.log(`fetch ${moduleName} error`, JSON.stringify(err));
           dispatch(
             setError(
@@ -206,7 +206,7 @@ export const mergeActions = (modules, moduleName) => {
           );
           dispatch(setSuccess(""));
           dispatch(setLoading(false));
-        });
+        });**/
     };
   const get =
     (

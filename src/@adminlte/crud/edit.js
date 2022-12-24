@@ -1,29 +1,30 @@
 import React, { memo } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import LayoutContent from "../../@adminlte/adminlte/Content/LayoutContent";
 import Form from "../../@adminlte/adminlte/form";
+import { useGetter, useDispatch } from "../../store";
 import { validationSchema } from "./validation";
+import Field from "./field";
 
-const AddRole = memo(() => {
+const EditRole = memo(({ title = "", model, initialState, schemas }) => {
+  const { id } = useParams();
   const history = useHistory();
+  const isLoading = useGetter(`${model}`, "isLoading");
+  const update = useDispatch(`${model}`, "update");
+  const onSubmit = useCallback(async (values, form) => {
+    await update({ ...values, id: id });
+    goBack();
+  }, []);
+  const goBack = useCallback(() => {
+    history.goBack();
+  }, [history]);
   return (
-    <LayoutContent title={"ajouter un role"}>
+    <LayoutContent title={title}>
       <Form
-        id="add-role"
-        enableReinitialize
-        initialValues={{
-          name: "",
-        }}
+        id={`edit-${model}`}
+        initialValues={initialState}
         validations={validationSchema}
-        onSubmit={(values, form) => {
-          const { name } = values;
-          /**dispatch(
-        action("vaccinateurs").create({
-          name: name,
-          contact: contact,
-        })
-      )**/ history.goBack();
-        }}
+        onSubmit={onSubmit}
         render={({ values }) => (
           <Form.Element>
             <div className="row">
@@ -33,18 +34,13 @@ const AddRole = memo(() => {
                     Information générale
                   </div>
                   <div className="card-body">
-                    <Form.Field.Input
-                      name="name"
-                      label="Nom"
-                      placeholder={"Nom"}
-                    />
+                    <Field schemas={schemas} />
                     <div className="mt-3">
                       <button className="btn btn-green  btn-sm " type="submit">
-                        Ajouter
+                        Editer
                       </button>
                       <button
-                        onClick={() => history.goBack()}
-                        className="btn btn-danger ml-2  btn-sm "
+                        className="btn btn-danger ml-2 btn-sm "
                         type="reset"
                       >
                         Annuler
@@ -61,4 +57,4 @@ const AddRole = memo(() => {
   );
 });
 
-export default AddRole;
+export default EditRole;

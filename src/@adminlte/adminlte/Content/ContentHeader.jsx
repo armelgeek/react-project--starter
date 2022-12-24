@@ -7,15 +7,15 @@ function ContentHeader({ children, title }) {
   return (
     <>
       <div>
-        <div class="content-header p-2 shadow-sm bg-white">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-sm-6">
-                <h5 class="text-uppercase">{title}</h5>
+        <div className="content-header p-2 shadow-sm bg-white">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-sm-6">
+                <h5 className="text-uppercase">{title}</h5>
               </div>
-              <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                  <li class="breadcrumb-item">
+              <div className="col-sm-6">
+                <ol className="breadcrumb float-sm-right">
+                  <li className="breadcrumb-item">
                     <Link to={"/"}>Accueil</Link>
                   </li>
                   {children}
